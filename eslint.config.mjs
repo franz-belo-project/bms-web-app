@@ -1,16 +1,24 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import recommended from "@marviuz/eslint-config/recommended";
+import typescript from "@marviuz/eslint-config/typescript";
+import react from "@marviuz/eslint-config/react";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+  { ignores: ["*.config.mjs", "*.config.mjs"] },
+  ...recommended,
+  ...typescript,
+  ...react,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
+  },
+  {
+    // files: ['**/*.config.*'],
+    rules: {
+      "import/no-default-export": "off",
+    },
+  },
 ];
-
-export default eslintConfig;
